@@ -2,7 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <!-- "Mark Favorite", should appear as action button if possible -->
 
+<!--
+    <item
+            android:id="@+id/check_dial"
+            android:title="x"
 
+            android:tooltipText="click"
+            android:showAsAction="always"
+            />
+-->
 
     <item
             android:id="@+id/check_modifier_state"

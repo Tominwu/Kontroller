@@ -168,17 +168,6 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
                 btHid?.connect(pairedDevices?.get(0))
             }
 
-//            val intent = Intent("CUSTOM_ACTION")
-//            intent.putExtra("DATE", Date().toString())
-//            Log.d("j", "sending broadcast")
-//
-//            // send local broadcast
-//            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-
-
-
-
-
         }
 
 
@@ -200,7 +189,7 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
             "Mobile BController",
             "bla",
             BluetoothHidDevice.SUBCLASS1_COMBO,
-            DescriptorCollection.MOUSE_KEYBOARD_COMBO
+            DescriptorCollection.MOUSE_KEYBOARD_COMBO_RADIAL
         )
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kontroller</string>
+    <string name="app_name">AB Dial</string>
     <string name="action_settings">Settings</string>
     <string name="action_keyboard_title">Keyboard Toggle</string>
     <string name="action_check">(N)</string>

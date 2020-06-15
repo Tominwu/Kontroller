@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.github.roarappstudio.btkontroller"
+        applicationId "com.tumuyan.abdial"
         minSdkVersion 28
         targetSdkVersion 28
         versionCode 2

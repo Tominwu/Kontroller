@@ -4,18 +4,19 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
     <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true"/>
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false"/>
-
+    <!--        android:icon="@mipmap/ic_launcher_ble_round"-->
     <application
         android:name=".Kontroller"
         android:allowBackup="false"
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher_ble_round"
+            android:icon="@drawable/surface_dial"
         android:supportsRtl="false"
         android:theme="@style/AppStyle"
         tools:ignore="GoogleAppIndexingWarning">

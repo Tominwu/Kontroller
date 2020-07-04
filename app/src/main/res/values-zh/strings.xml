@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AB Dial</string>
+    <string name="action_settings">设置</string>
+    <string name="action_keyboard_title">键盘开关</string>
+    <string name="action_tool_tip">Ctrl/Alt/Win按键状态保持</string>
+    <string name="action_disconnect">断开链接</string>
+    <string name="action_check">(N)</string>
+    <string name="action_autopair">自动配对</string>
+    <string name="auto_pair_flag">autopairfl</string>
+    <string name="title_screen_on">屏幕常亮</string>
+    <string name="action_ble_status_tool_tip">应用没有通过蓝牙连接设备</string>
+    <string name="screen_on_flag">screenonfl</string>
+    <string name="keyboard_state_0">⇩</string>
+    <string name="keyboard_state_1">⌨</string>
+    <string name="keyboard_state_2">(句)</string>
+    <string name="keyboard_tip_0">隐藏键盘</string>
+    <string name="keyboard_tip_1">手机键盘相当于蓝牙键盘</string>
+    <string name="keyboard_tip_2">在文本框内输入后，一次性发送框内全部内容</string>
+
+    <string name="keyboard_tip_hid">实时发送键盘上的字符</string>
+    <string name="keyboard_tip_ansi">以你选择的编码发送文本</string>
+    <string name="keyboard_tip_unicode">以Unicode编码发送文本</string>
+
+    <string name="button_send">发送文本</string>
+    <string name="button_release">释放按键</string>
+    <string name="select_ansi_code">选择编码</string>
+
+    <string name="wheel_haptic_min">转盘振动间隔时间</string>
+    <string name="wheel_haptic_min_time">设置触发旋转触振动的最小间隔时间(ms). 数值设置过低会造成马达持续转动甚至完全不转动.合理的数值在80-250之间. 默认值为0，表示旋转时不振动。</string>
+
+    <string name="wheel_haptic_vib">转盘振动时间</string>
+    <string name="wheel_haptic_vibrate_time">设置每次触发振动的振动持续时间. 目前这个参数不对应具体时间，提供的选项是系统提供的触觉反馈的模式。</string>
+    
+    <string name="wheel_haptic_skip">转盘振动衰减</string>
+    <string name="wheel_haptic_skip_count">每转动多少个count触发一次振动. 当前定义1count=0.2度. 默认值30</string>
+
+    <string name="haptic_use">振动开关</string>
+    <string name="haptic_use_system">跟随系统设置</string>
+    <string name="haptic_use_mandatory">强制振动</string>
+    <string name="haptic_use_null">关闭振动</string>
+    <string name="action_haptic_settings">触感设置</string>
+    <string name="action_show_edittext">显示文本框</string>
+    <string name="mult_line_text">m
+        \nu
+        \nl
+        \nt
+        \n
+        \nl
+        \ni
+        \nn
+        \ne
+        \n
+        \ntext</string>
+</resources>

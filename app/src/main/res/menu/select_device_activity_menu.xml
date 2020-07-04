@@ -11,15 +11,20 @@
             android:showAsAction="always"
             />
 -->
+    <item
+            android:id="@+id/keyboard_state"
+            android:icon="@drawable/ic_icon_hid"
+            android:title=""
+            android:tooltipText="@string/keyboard_tip_hid"
+            android:showAsAction="always"
+            />
+
 
     <item
             android:id="@+id/check_modifier_state"
             android:title="@string/action_check"
-
             android:tooltipText="@string/action_tool_tip"
             android:showAsAction="always"
-
-
     />
 
     <item
@@ -43,6 +48,11 @@
 
     <!-- Settings, should always be in the overflow -->
 
+    <item android:id="@+id/action_haptic_settings"
+            android:title="@string/action_haptic_settings"
+            android:showAsAction="never"
+            />
+
     <item android:id="@+id/action_disconnect"
           android:title="@string/action_disconnect"
           android:showAsAction="never"
@@ -52,21 +62,29 @@
           android:title="@string/action_autopair"
           android:checkable="true"
           android:showAsAction="never"
-
     />
 
     <item android:id="@+id/action_screen_on"
           android:title="@string/title_screen_on"
           android:checkable="true"
           android:showAsAction="never"
-
     />
 
+    <item android:id="@+id/action_show_edittext"
+            android:title="@string/action_show_edittext"
+            android:checkable="true"
+            android:showAsAction="never"
+            />
 
+    <item android:id="@+id/action_select_ansi_code"
+            android:title="@string/select_ansi_code"
+            android:showAsAction="never"
+            />
+<!--
+    <item android:id="@+id/action_wheel_haptic"
+            android:title="@string/wheel_haptic_min"
+            android:showAsAction="never"
+            />
+-->
 
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:showAsAction="never"
-
-          />
 </menu>

@@ -93,11 +93,12 @@ open class RadialSender2(
             Log.e(TAG, "error key=" + key)
     }
 
-
-
+    private var dial_report_last_time=0
+    private var dial_report_comb_count=0
 
     open fun sendDial(angel: Int) :Boolean{
         // 默认已经正则化，一周3600count.如果差异大于半周
+        // 如果发送`发送了按键事件，返回true。如果操作被过滤了，返回false
         var key = angel - angel_0
 
         if (Math.abs(key) > 1800) {
@@ -128,6 +129,10 @@ open class RadialSender2(
         var bytes: ByteArray = ByteArray(2) { 0 }
         bytes[0] = byte4[3]
         bytes[1] = byte4[2]
+
+
+//        var dial_report_comb_new=dial_report_comb_count+key/k
+        dial_report_comb_count+=key/k
         // 事实上，dial只有短按/长按/滚动三种操作，不存在下压的同时旋转的动作
 //        if (button) {
 //            bytes[0] = bytes[0] or 1.toByte()
@@ -135,6 +140,28 @@ open class RadialSender2(
 
         Log.w(TAG, "Report sent=" + hidDevice.sendReport(host, ID, bytes) + ", dial count=" + key+", bytes="+bytes[0]+":"+bytes[1]+", byte4="+byte4[0]+":"+byte4[1]+":"+byte4[2]+":"+byte4[3])
    return true
+    }
+
+
+
+    open fun sendDial(angel: Int,comb:Int) :Boolean{
+        // 默认已经正则化，一周3600count.如果差异大于半周
+        // 如果发送`发送了按键事件，返回true。如果操作被过滤了，返回false
+
+        // 增加了参数comb，当连续发送comb个转动的事件时，才进行震动反馈
+       if(sendDial(angel)) {
+           if(dial_report_comb_count>=0){
+               if(dial_report_comb_count>=comb){
+                   dial_report_comb_count=dial_report_comb_count%comb
+                   return  true
+               }
+           }else  if(dial_report_comb_count<=-comb){
+               dial_report_comb_count=dial_report_comb_count%comb
+               return  true
+           }
+       }
+//        if(System.currentTimeMillis()-dial_report_last_time>3000)
+       return false
     }
 
 

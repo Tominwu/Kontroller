@@ -11,4 +11,48 @@
     <string name="action_ble_status_tool_tip">App not connected via bluetooth</string>
 
     <string name="screen_on_flag">screenonfl</string>
+
+    <string name="keyboard_state_0">⇩</string>
+    <string name="keyboard_state_1">⌨</string>
+    <string name="keyboard_state_2">(W)</string>
+    <string name="keyboard_tip_0">Hidden keyboard</string>
+    <string name="keyboard_tip_1">Your Android drive works like a bluetooth keyboard</string>
+    <string name="keyboard_tip_2">You can edit text first，finally click the send button</string>
+
+    <string name="keyboard_tip_hid">Send keycode directly</string>
+    <string name="keyboard_tip_ansi">Send words with selected charset</string>
+    <string name="keyboard_tip_unicode">Send words with Unicode encode</string>
+
+    <string name="button_send">Send</string>
+    <string name="button_release">Release</string>
+    <string name="select_ansi_code">Select Charset</string>
+
+    <string name="wheel_haptic_min">Time between twice wheel haptic</string>
+    <string name="wheel_haptic_min_time">Setting the minimum time between twice wheel haptic(ms). setting=0，the wheel will not provide haptic</string>
+
+    <string name="wheel_haptic_vib">wheel haptic time</string>
+    <string name="wheel_haptic_vibrate_time">Set the mode of wheel haptic （provide by the operate system）</string>
+
+    <string name="wheel_haptic_skip">wheel haptic skip count</string>
+    <string name="wheel_haptic_skip_count">how many count could send once haptic event. 1count=0.2degree</string>
+
+    <string name="haptic_use">haptic mode</string>
+    <string name="haptic_use_system">Use system setting</string>
+    <string name="haptic_use_mandatory">always</string>
+    <string name="haptic_use_null">never</string>
+
+    <string name="action_haptic_settings">haptic Setting</string>
+    <string name="action_show_edittext">Show EditText</string>
+
+    <string name="mult_line_text">m
+        \nu
+        \nl
+        \nt
+        \n
+        \nl
+        \ni
+        \nn
+        \ne
+        \n
+        \ntext</string>
 </resources>

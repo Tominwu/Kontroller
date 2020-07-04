@@ -82,9 +82,19 @@ inline class KeyboardReport (
 
     var key1: Byte
         get() = bytes[2]
-        set(value) { bytes[2] = value }
+        set(value) {
+            bytes[2] = value
+
+        }
 
     fun reset() = bytes.fill(0)
+
+    fun reset_function_key(){ bytes[0]=0}
+    fun new_normal_key():ByteArray{
+        var v=ByteArray(3) {0}
+        v[0]=bytes[0]
+        return v
+    }
 
     companion object {
         const val ID = 8
@@ -176,9 +186,16 @@ inline class KeyboardReport (
             KeyEvent.KEYCODE_AT to 31,
             KeyEvent.KEYCODE_POUND to 32,
             KeyEvent.KEYCODE_STAR to 37
+        )
 
-
-
+//        89 0x59 Keypad 1 and End 93 √ √ √ 4/101/104
+//        83 0x53 Keypad Num Lock and Clear11
+        val KeyCodeNumberPad: ByteArray = byteArrayOf(
+            98,
+            89, 90, 91,
+            92, 93, 94,
+            95, 96, 97,
+            83
         )
     }
 }

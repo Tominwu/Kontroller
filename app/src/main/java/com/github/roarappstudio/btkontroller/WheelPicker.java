@@ -1,4 +1,4 @@
-package com.tumuyan.wheelcontrol.controls;/*
+package com.github.roarappstudio.btkontroller;/*
  * Copyright 2012 Lars Werkman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +14,6 @@ package com.tumuyan.wheelcontrol.controls;/*
  * limitations under the License.
  */
 
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHidDevice;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -27,7 +25,6 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -35,10 +32,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-import com.github.roarappstudio.btkontroller.R;
 import com.github.roarappstudio.btkontroller.senders.RadialSender2;
-
-import static android.content.Context.VIBRATOR_SERVICE;
 
 
 public class WheelPicker extends View {
@@ -49,10 +43,6 @@ public class WheelPicker extends View {
     private static final String STATE_ANGLE = "angle";
     private static final String STATE_OLD_COLOR = "color";
     private static final String STATE_SHOW_OLD_COLOR = "showColor";
-    private Vibrator vibrator;
-    private static final int VIBRATOR_SHOET = 50;
-    private static final int VIBRATOR_LONG = 150;
-
     /**
      * Colors to construct the color wheel using {@link SweepGradient}.
      */
@@ -224,6 +214,8 @@ public class WheelPicker extends View {
      * {@code onColorSelectedListener} instance of the onColorSelectedListener
      */
     private OnColorSelectedListener onColorSelectedListener;
+    private Paint mColorTinyPaint;
+
 
     public WheelPicker(Context context) {
         super(context);
@@ -305,7 +297,7 @@ public class WheelPicker extends View {
     private int oldSelectedListenerColor;
 
     private void init(AttributeSet attrs, int defStyle) {
-        vibrator = (Vibrator) getContext().getSystemService(VIBRATOR_SERVICE);
+//        vibrator = (Vibrator) getContext().getSystemService(VIBRATOR_SERVICE);
 
         final TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.ColorPicker, defStyle, 0);
@@ -339,6 +331,7 @@ public class WheelPicker extends View {
 
         Shader s = new SweepGradient(0, 0, COLORS, null);
 
+
         mColorWheelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mColorWheelPaint.setShader(s);
         mColorWheelPaint.setStyle(Paint.Style.STROKE);
@@ -355,6 +348,11 @@ public class WheelPicker extends View {
         mCenterNewPaint.setColor(calculateColor(mAngle));
         mCenterNewPaint.setStyle(Paint.Style.FILL);
 
+        mColorTinyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mCenterNewPaint.setColor(Color.LTGRAY);
+        mColorTinyPaint.setStyle(Paint.Style.STROKE);
+        mColorTinyPaint.setStrokeWidth(10);
+
         mCenterOldPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mCenterOldPaint.setColor(calculateColor(mAngle));
         mCenterOldPaint.setStyle(Paint.Style.FILL);
@@ -368,6 +366,36 @@ public class WheelPicker extends View {
         mShowCenterOldColor = true;
     }
 
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.translate(mTranslationOffset, mTranslationOffset);
+
+        {
+
+            // Draw the new selected color in the center.
+            canvas.drawArc(mCenterRectangle, 0, 360, true, mColorTinyPaint);
+//                canvas.drawCircle(0,0,mColorWheelRectangle.width(),mColorTinyPaint);
+
+
+//            Log.d("onDraw","rectF="+mCenterRectangle+", rectF.width="+mCenterRectangle.width()+", color="+mColorTinyPaint.getColor());
+
+/*
+
+                void drawCircle(float cx, float cy, float radius, Paint paint)
+                绘制圆形。
+                cx和cy是圆心坐标，radius是半径长度。
+
+                void drawArc(RectF oval, float startAngle, float sweepAngle. boolean useCenter, Paint paint)
+                绘制圆弧形，也是以矩形的内切椭圆为标准。
+                其中，startAngle为起始角度，sweepAngle为弧度大小，
+                useCenter为true，则是绘制一个扇行，为false，则只是一段圆弧。（ps：startAngle为0时，是圆形钟表3点钟方向
+*/
+        }
+    }
+
+
+/*
     @Override
     protected void onDraw(Canvas canvas) {
         // All of our positions are using our internal coordinate system.
@@ -403,6 +431,7 @@ public class WheelPicker extends View {
             canvas.drawArc(mCenterRectangle, 0, 360, true, mCenterNewPaint);
         }
     }
+*/
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -503,6 +532,18 @@ public class WheelPicker extends View {
         return Color.argb(a, r, g, b);
     }
 
+    private int calulateNextColor() {
+        float[] colors = new float[3];
+        Color.colorToHSV(mCenterNewColor, colors);
+        Log.i("calulateNextColor", "h=" + colors[0] + ", s=" + colors[1] + ", v=" + colors[2]);
+
+        colors[0] += 30;
+        if (colors[0] > 360)
+            colors[0] -= 360;
+        Log.i("calulateNextColor", "color=" + colors[0]);
+        return Color.HSVToColor(colors);
+    }
+
 
     public int getColor() {
         return mCenterNewColor;
@@ -524,80 +565,7 @@ public class WheelPicker extends View {
     }
 
 
-    public boolean event_key_press() {
-        return true;
-    }
-
-    public boolean event_key_release() {
-        return false;
-    }
-
-    public int event_wheel_click() {
-        return mCenterNewColor;
-    }
-
-    private int margin_wheel_angel = 3;
-    private Point p0, p1, p2, p_wheel;
-
-    public int event_wheel_move(Point p1) {
-        int dif = p_wheel.distance(p0);
-        if (dif > margin_wheel_angel) {
-            performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-            p_wheel.set(p1);
-        }
-        return mCenterNewColor;
-
-    }
-/*
-    触感反馈参数
-    int	CLOCK_TICK
-    The user has pressed either an hour or minute tick of a Clock.
-
-    int	CONFIRM
-    A haptic effect to signal the confirmation or successful completion of a user interaction.
-
-    int	CONTEXT_CLICK
-    The user has performed a context click on an object.
-
-    int	GESTURE_END
-    The user has finished a gesture (e.g. on the soft keyboard).
-
-    int	GESTURE_START
-    The user has started a gesture (e.g. on the soft keyboard).
-
-    int	KEYBOARD_PRESS
-    The user has pressed a virtual or software keyboard key.
-
-    int	KEYBOARD_RELEASE
-    The user has released a virtual keyboard key.
-
-    int	KEYBOARD_TAP
-    The user has pressed a soft keyboard key.
-
-    int	LONG_PRESS
-    The user has performed a long press on an object that is resulting in an action being performed.
-
-    int	REJECT
-    A haptic effect to signal the rejection or failure of a user interaction.
-
-    int	TEXT_HANDLE_MOVE
-    The user has performed a selection/insertion handle move on text field.
-
-    int	VIRTUAL_KEY
-    The user has pressed on a virtual on-screen key.
-
-    int	VIRTUAL_KEY_RELEASE
-    The user has released a virtual key.
-*/
-
-    private void haptic_feedback() {
-        performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-        performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-    }
-
-    //	BluetoothHidDevice hidDevice;
-//	BluetoothDevice host ;
-    private RadialSender2 mRadialSender2=null;
+    private RadialSender2 mRadialSender2 = null;
 
     public void setBluetoothRadialSender(RadialSender2 mRadialSender2) {
         this.mRadialSender2 = mRadialSender2;
@@ -605,11 +573,122 @@ public class WheelPicker extends View {
 
 
 /*
+关于haptic feedback：
+wheelpicker的view只处理2种事件：
+button 的点击和释放
+radial 的点击和释放
+是否发生长按事件，由系统判断
+是否发生radial的事件，经过了多重过滤：
+1. 移动是否发生了角度变化（vew计算
+2. 角度变化量是否超出了阈值（sender2计算
+是否产生haptic feedback，由view计算（对dial事件返回的事件进行过滤
 
-	public boolean buttom(boolean state){
-		return state;
-	}
+haptic feedback的模式做了如下筛选适配：
+
+release/tick/move并没有明显触感
+virtual key press >
+keyboard tape/press >
+context click >
+long press
+
+因此long press匹配给radial事件
+button 适配 virtual key
+radial press/release适配keyboard press
+radial 事件适配 long press
+
 */
+
+/*
+
+haptic有三种模式：
+
+    忽略view设置
+        v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING
+    忽略系统设置
+       v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+
+*/
+
+    private long haptic_last_time =0;
+    private int wheel_haptic_minimum_time_flag =Value.Companion.getWheel_haptic_minimum_time_flag();
+    private int haptic_use_flag=Value.Companion.getHaptic_use_flag();
+    private int wheel_haptic_skip_count_flag=Value.Companion.getWheel_haptic_skip_count_flag();
+    private int wheel_haptic_vibrate_time_flag=Value.Companion.getWheel_haptic_vibrate_time_flag();
+
+    public void set_wheel_haptic_min(int wheel_haptic_minimum_time) {
+        this.wheel_haptic_minimum_time_flag = wheel_haptic_minimum_time;
+    }
+
+    public void set_haptic_use(int i){
+        if(i<0 || i>2){
+            Log.e("set_haptic_use_flag()","out of define/"+i);
+        }     else
+        haptic_use_flag=i;
+    }
+
+    public void set_wheel_haptic_vibrate_time(int i){
+        wheel_haptic_vibrate_time_flag=i;
+    }
+    public void  set_wheel_haptic_skip_count(int i){
+        if(i<1)
+            i=1;
+        wheel_haptic_skip_count_flag=i;
+    }
+
+
+    public void config_haptic(
+            int haptic_use_flag,
+            int wheel_haptic_minimum_time_flag,
+            int wheel_haptic_vibrate_time_flag,
+            int wheel_haptic_skip_count_flag
+    ) {
+        Log.w("config_haptic()",
+                "haptic_use_flag="+haptic_use_flag+", " +
+                        "wheel_haptic_minimum_time_flag="+wheel_haptic_minimum_time_flag+", " +
+                        "wheel_haptic_vibrate_time_flag="+wheel_haptic_vibrate_time_flag+", " +
+                "wheel_haptic_skip_count_flag="+wheel_haptic_skip_count_flag);
+        if(haptic_use_flag<0 || haptic_use_flag>2){
+            Log.e("config_haptic()","haptic_use_flag out of define/"+haptic_use_flag);
+        }
+        else
+            this.haptic_use_flag=haptic_use_flag;
+
+        if(wheel_haptic_minimum_time_flag<0 || wheel_haptic_minimum_time_flag>3000){
+            Log.e("config_haptic()","wheel_haptic_minimum_time_flag out of define/"+wheel_haptic_minimum_time_flag);
+        }else
+            this.wheel_haptic_minimum_time_flag=wheel_haptic_minimum_time_flag;
+
+        if(wheel_haptic_vibrate_time_flag<0){
+            Log.e("config_haptic()","wheel_haptic_vibrate_time_flag out of define/"+wheel_haptic_vibrate_time_flag);
+        }else
+            this.wheel_haptic_vibrate_time_flag=wheel_haptic_vibrate_time_flag;
+
+        if(wheel_haptic_skip_count_flag<0 || wheel_haptic_skip_count_flag>3000){
+            Log.e("config_haptic()","wheel_haptic_skip_count_flag out of define/"+wheel_haptic_skip_count_flag);
+        }else
+            this.wheel_haptic_skip_count_flag=wheel_haptic_skip_count_flag;
+    }
+
+    private void haptic_radial(boolean feedback) {
+        if (feedback) {
+            long t = System.currentTimeMillis();
+            if (t - haptic_last_time > wheel_haptic_minimum_time_flag) {
+//                performHapticFeedback(wheel_haptic_vibrate_time_flag);
+                haptic(wheel_haptic_vibrate_time_flag);
+                haptic_last_time = t;
+            }
+        }
+    }
+
+    private void haptic(int flag){
+        if(haptic_use_flag==1){
+            performHapticFeedback(flag,HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+        }else if(haptic_use_flag==2){
+
+        }else{
+            performHapticFeedback(flag);
+        }
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -621,50 +700,26 @@ public class WheelPicker extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                // Check whether the user pressed on the pointer.
-                float[] pointerPosition = calculatePointerPosition(mAngle);
-                if (x >= (pointerPosition[0] - mColorPointerHaloRadius)
-                        && x <= (pointerPosition[0] + mColorPointerHaloRadius)
-                        && y >= (pointerPosition[1] - mColorPointerHaloRadius)
-                        && y <= (pointerPosition[1] + mColorPointerHaloRadius)) {
-                    mSlopX = x - pointerPosition[0];
-                    mSlopY = y - pointerPosition[1];
-                    mUserIsMovingPointer = true;
-                    invalidate();
-                    Log.i("TouchEvent.down", "pointer press");
 
-                }
-                // Check whether the user pressed on the center.
-                else if (x >= -mColorCenterRadius && x <= mColorCenterRadius
+                if (x >= -mColorCenterRadius && x <= mColorCenterRadius
                         && y >= -mColorCenterRadius && y <= mColorCenterRadius
                         && mShowCenterOldColor) {
                     mCenterHaloPaint.setAlpha(0x50);
-                    setColor(getOldCenterColor());
+                    setColor(calulateNextColor());
                     invalidate();
-                    performHapticFeedback(HapticFeedbackConstants.KEYBOARD_PRESS);
+                    haptic(HapticFeedbackConstants.VIRTUAL_KEY);
                     Log.i("TouchEvent.down", "button press");
-                    if(mRadialSender2!=null)
-                    mRadialSender2.sendKeys(1);
-                    //		vibrator.vibrate(VIBRATOR_LONG);
-                }
-                // Check whether the user pressed anywhere on the wheel.
-                else if (Math.sqrt(x * x + y * y) <= mColorWheelRadius + mColorPointerHaloRadius
-                        && Math.sqrt(x * x + y * y) >= mColorWheelRadius - mColorPointerHaloRadius
-                        && mTouchAnywhereOnColorWheelEnabled) {
+                    if (mRadialSender2 != null)
+                        mRadialSender2.sendKeys(1);
+
+                } else {
+                    // 去掉了spacer的判定
                     mUserIsMovingPointer = true;
                     invalidate();
-                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                 Log.i("TouchEvent.down", "cycle press");
-                    if(mRadialSender2!=null)
-                  mRadialSender2.setAngel_0(  calculateInt(mAngle, 0, 3600));
-
-                    //	vibrator.vibrate(VIBRATOR_LONG);
-                    //vibrator.vibrate(new long[] {50,30,100,30},1);
-                }
-                // If user did not press pointer or center, report event not handled
-                else {
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                    return false;
+                    haptic(HapticFeedbackConstants.KEYBOARD_PRESS);
+                    Log.i("TouchEvent.down", "cycle press");
+                    if (mRadialSender2 != null)
+                        mRadialSender2.setAngel_0(calculateInt(mAngle, 0, 3600));
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -674,11 +729,16 @@ public class WheelPicker extends View {
 
                     setNewCenterColor(mCenterNewColor = calculateColor(mAngle));
                     calculateInt(mAngle, 0, 3600);
-                    //	Log.i("TouchEvent.move","color="+mCenterNewColor+"\tangle="+mAngle);
-                    if(mRadialSender2!=null){
-                       mRadialSender2.sendDial(  calculateInt(mAngle, 0, 3600))    ;
-
-//                            performHapticFeedback(HapticFeedbackConstants.GESTURE_END); ;
+                    //	    Log.i("TouchEvent.move","color="+mCenterNewColor+"\tangle="+mAngle);
+                    if (mRadialSender2 != null) {
+                        //
+                        //      触感反馈仍然不佳
+                        Log.w("wheel_haptic_minimum_time_flag",
+                                "value="+wheel_haptic_minimum_time_flag+":"+(wheel_haptic_minimum_time_flag>0));
+                        if(wheel_haptic_minimum_time_flag >0)
+                            haptic_radial(mRadialSender2.sendDial(  calculateInt(mAngle, 0, 3600),wheel_haptic_skip_count_flag) );
+                        else
+                            mRadialSender2.sendDial(calculateInt(mAngle, 0, 3600));
                     }
 
                     invalidate();
@@ -702,17 +762,11 @@ public class WheelPicker extends View {
                         && y >= -mColorCenterRadius && y <= mColorCenterRadius
                         && mShowCenterOldColor) {
                     mCenterHaloPaint.setAlpha(0x50);
-                    setColor(getOldCenterColor());
+//                    setColor(getOldCenterColor());
                     invalidate();
-                    performHapticFeedback(HapticFeedbackConstants.KEYBOARD_RELEASE);
-                    Log.i("TouchEvent.up", "button release");
-                    if(mRadialSender2!=null)
-                    mRadialSender2.sendKeys(2);
-
+                    if (mRadialSender2 != null)
+                        mRadialSender2.sendKeys(2);
                 }
-
-
-                Log.i("TouchEvent.up", "color=" + mCenterNewColor);
 
                 invalidate();
                 break;
@@ -725,6 +779,7 @@ public class WheelPicker extends View {
         }
         return true;
     }
+
 
     /**
      * Calculate the pointer's coordinates on the color wheel using the supplied
@@ -750,6 +805,7 @@ public class WheelPicker extends View {
     public void setNewCenterColor(int color) {
         mCenterNewColor = color;
         mCenterNewPaint.setColor(color);
+        mColorTinyPaint.setColor(color);
         if (mCenterOldColor == 0) {
             mCenterOldColor = color;
             mCenterOldPaint.setColor(color);

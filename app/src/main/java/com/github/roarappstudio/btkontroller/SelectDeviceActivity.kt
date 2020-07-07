@@ -8,7 +8,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorManager
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -119,16 +118,17 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
             mainHandler.post(object : Runnable{
                 override fun run() {
 
-
                     rKeyboardSender= KeyboardSender(hidd,device)
-
-//                    mRadialSender= RadialSender(hidd,device)
-
                     mRadialSender2= RadialSender2(hidd,device)
 
                         wheelView?.setBluetoothRadialSender(mRadialSender2);
                         wheelView?.setNewCenterColor(Color.GREEN)
-//                    wheelView?.set_wheel_haptic_min(sharedPref.getInt("wheel_haptic_min_time_falg",0))
+
+                    rKeyboardSender?.configSendString(
+                        sharedPref.getInt("delay_time",Value.delay_time),
+                        sharedPref.getBoolean("fast_mode_flag",false),
+                        sharedPref.getBoolean("replace_newline_flag",false)
+                    )
 
                     val rMouseSender = RelativeMouseSender(hidd,device)
                     Log.i("TAGdddUI", Thread.currentThread().getName());
@@ -213,12 +213,19 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
 
                          Thread({
                              if(keyboard_state==1){
-                                 rKeyboardSender!!.sendKeyboard(str)
+                                 rKeyboardSender!!.sendString(str)
                              }else if(keyboard_state==2){
-                                 rKeyboardSender!!.sendKeyboard(str,Charset.forName(ansi_code_flag))
+                                 rKeyboardSender!!.sendString(str,Charset.forName(ansi_code_flag))
                              }
-                             btn_send!!.isClickable=true
-                             editText!!.setText("")
+                             val mainHandler = Handler(getContext().mainLooper)
+
+                             mainHandler.post(object : Runnable {
+                                 override fun run() {
+                                     btn_send!!.isClickable=true
+                                     editText!!.setText("")
+                                 }
+                             })
+
                          }).start()
 
 
@@ -234,6 +241,11 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
         }
 
         BluetoothController.getDisconnector{
+            Log.e("BluetoothController","getDisconnector")
+//            bluetoothStatus?.icon=getDrawable(R.drawable.ic_action_app_not_connected)
+//            bluetoothStatus?.tooltipText="App not connected via bluetooth"
+//            wheelView?.setNewCenterColor(Color.LTGRAY)
+
             val mainHandler = Handler(getContext().mainLooper)
 
             mainHandler.post(object : Runnable {
@@ -250,14 +262,18 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
 
     protected override fun onResume() {
         super.onResume()
-
-
         val sharedPref = this.getSharedPreferences("setting",Context.MODE_PRIVATE)
         wheelView?.config_haptic(
             sharedPref.getInt("haptic_use_flag",Value.haptic_use_flag),
             sharedPref.getInt("wheel_haptic_min_time_falg",Value.wheel_haptic_minimum_time_flag),
             sharedPref.getInt("wheel_haptic_vibrate_time_flag",Value.wheel_haptic_vibrate_time_flag),
             sharedPref.getInt("wheel_haptic_skip_count_flag",Value.wheel_haptic_skip_count_flag)
+        )
+
+        rKeyboardSender?.configSendString(
+            sharedPref.getInt("delay_time",Value.delay_time),
+            sharedPref.getBoolean("fast_mode_flag",false),
+            sharedPref.getBoolean("replace_newline_flag",false)
         )
 
     }
@@ -301,6 +317,7 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
         keyboardMenuItem=menu?.findItem(R.id.keyboard_state)
 
         showEditTextMenuItem=menu?.findItem(R.id.action_show_edittext)
+        showEditTextMenuItem?.isChecked = sharedPref.getBoolean("showEditTextMenuItem",false)
 //        wheel_haptic_min_time_falg=sharedPref.getInt("wheel_haptic_min_time_falg",0)
 //        wheelFeedbackMenu=menu?.findItem(R.id.action_wheel_haptic)
 //        wheelFeedbackMenu?.title=getString(R.string.wheel_haptic_min)+" "+wheel_haptic_min_time_falg
@@ -515,7 +532,7 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
             val sharedPref = this?.getSharedPreferences("setting", Context.MODE_PRIVATE)
             with(sharedPref.edit())
             {
-                putBoolean("showEditTextMenuItem", false)
+                putBoolean("showEditTextMenuItem", item.isChecked)
                 commit()
             }
             if (item.isChecked)

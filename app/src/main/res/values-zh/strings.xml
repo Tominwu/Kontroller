@@ -41,6 +41,29 @@
     <string name="haptic_use_null">关闭振动</string>
     <string name="action_haptic_settings">触感设置</string>
     <string name="action_show_edittext">显示文本框</string>
+
+    <string name="string_setting">文本设置</string>
+    <string name="sendkey_delay">字符延时(ms)</string>
+    <string name="sendkey_delay_tip">APP发送字符串的本质是按下Alt+数字键，从而直接发送Unicode或者其他编码的字符到设备上。
+        经测试验证，按键操作速度太高会造成发送错误（并且目前还不能侦测到何时发生了错误），而在每次按按键之间设置的延时可以提高稳定性。默认延时13</string>
+    
+    <string name="replace_newline">换行转换</string>
+    <string name="replace_newline_tip">Unix系统里，每行结尾只有“\\n”；Windows系统里面，每行结尾是“\\r\\n”；Mac系统里，每行结尾是“\\r”。
+    Android属于Unix系统，输入的回车只生成了“\\n”。如果链接设备的系统并非Unix,没有对换行进行转换，并且没有打开快速模式，手机字符串中的换行在设备上会变成空格。
+    </string>
+
+    <string name="sendkey_fast">快速模式</string>
+    <string name="sendkey_fast_tip">发送字符串时，对标准键盘上的数字/英语字母/符号不进行编码转换，从而提高发送速度。如果打开快速模式，请务必确认设备的输入法切换到了英语键盘模式。</string>
+
+    <string name="ansi_code">编码说明</string>
+    <string name="ansi_code_tip">AB dial的键盘事件有三种，在APP顶部分别用HID/UI/ANSI表示。
+        \nHID表示把键盘上的按键实时发送给设备。
+    \nUI表示内容先输入到文本框内，点发送按钮时APP再把文本框内的字符串以Unicode发送到设备。
+    \nANSI表示内容先输入到文本框内，点发送按钮时APP再把文本框内的字符串以你选择的编码发送到设备。
+        \n如果选择了错误的编码，发送字符串时会形成乱码。在Windows系统中，不太老的软件一般支持Unicode编码。
+        如果输入Unicode失败，可以选择字符集GBK（中文简体）或者BIG5（中文繁体）并把图标点到ANSI上。
+    </string>
+
     <string name="mult_line_text">m
         \nu
         \nl

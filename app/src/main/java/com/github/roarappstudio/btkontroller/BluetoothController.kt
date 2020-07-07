@@ -70,7 +70,7 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
 
 
     fun getDisconnector(callback: ()->Unit) {
-
+        Log.e(TAG, "getDisconnector")
         disconnectListener = callback
     }
 
@@ -80,6 +80,7 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
 
     override fun onServiceDisconnected(profile: Int) {
         Log.e(TAG, "Service disconnected!")
+        disconnectListener?.invoke()
         if (profile == BluetoothProfile.HID_DEVICE)
             btHid = null
     }
@@ -100,10 +101,6 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
         this.btHid = btHid
         btHid.registerApp(sdpRecord, null, qosOut, {it.run()}, this)//--
         btAdapter.setScanMode(BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE, 300000)
-
-
-
-
     }
 
 
@@ -111,6 +108,30 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
     /************************************************/
     /** BluetoothHidDevice.Callback implementation **/
     /************************************************/
+
+    override open fun onInterruptData(
+        device: BluetoothDevice,
+        reportId: Byte,
+        data: ByteArray?
+    ): Unit {
+        Log.d(
+             TAG,
+            "onInterruptData: device=$device reportId=$reportId"
+        )
+        super.onInterruptData(device, reportId, data)
+    }
+
+    /**
+     * Callback called when Virtual Cable is removed. After this callback is received connection
+     * will be disconnected automatically.
+     */
+    override fun onVirtualCableUnplug(device: BluetoothDevice) {
+        Log.d(
+             TAG,
+            "onVirtualCableUnplug: device=$device"
+        )
+        super.onVirtualCableUnplug(device)
+    }
 
 
 
@@ -138,6 +159,7 @@ object BluetoothController: BluetoothHidDevice.Callback(), BluetoothProfile.Serv
             hostDevice = null
             if(state == BluetoothProfile.STATE_DISCONNECTED)
             {
+                Log.e(TAG, "onConnectionStateChanged disconnect)")
                 disconnectListener?.invoke()
             }
 

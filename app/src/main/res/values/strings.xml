@@ -44,6 +44,27 @@
     <string name="action_haptic_settings">haptic Setting</string>
     <string name="action_show_edittext">Show EditText</string>
 
+    <string name="string_setting">String Setting</string>
+    <string name="sendkey_delay">Delay(ms)</string>
+    <string name="sendkey_delay_tip">Sending keys too fast mightly make some error. Set delay and it will be fine. Default delay is 13ms</string>
+
+    <string name="replace_newline">Replace Return</string>
+    <string name="replace_newline_tip">In Unix,"return" is “\\n”；In Windows, "return" is “\\r\\n”；In Mac, "return" is “\\r”.\n
+        Android is a Unix system，it is different from windows. If your PC is not Unix， and you also not turn “fast mode” ON，the “return” you inputed will be show as a space in your PC.
+    </string>
+
+    <string name="sendkey_fast">Fast Mode</string>
+    <string name="sendkey_fast_tip">Send string without converting the numbers,English letters and some symbols on the standard keyboard, it could increasing the speed.
+        If it is turned on, make sure that the input method is switched to English keyboard mode.</string>
+    <string name="ansi_code">Encode</string>
+    <string name="ansi_code_tip">AB Dial has three mode for send keyboard events, toggled HID/UI/ANSI icon at the top of the app.
+        \nHID means that the keys on the keyboard are sent to the device in real time.
+    \nUI means that the content is first entered into the text box, and then the app sends the string from the text box to the device in Unicode when you tap the send button.
+    \nANSI means that the content is input into the text box first, and when you tap the send button, the app sends the string in the text box to the device with the code you choose.
+        \nIf the wrong encoding is selected, sending the string will form a garbled code. On Windows, less old software generally supports Unicode encoding.
+        If entering Unicode fails, you can select the character and dot the icon to ANSI.
+    </string>
+
     <string name="mult_line_text">m
         \nu
         \nl

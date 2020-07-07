@@ -188,7 +188,94 @@ inline class KeyboardReport (
             KeyEvent.KEYCODE_STAR to 37
         )
 
-//        89 0x59 Keypad 1 and End 93 √ √ √ 4/101/104
+
+
+        val UnicodeKeyEventMap = mapOf<Int,Int>(
+            97   to 4, //KeyEvent.KEYCODE_A
+            98   to 5, //KeyEvent.KEYCODE_B
+            99   to 6, //KeyEvent.KEYCODE_C
+            100  to 7, //KeyEvent.KEYCODE_D
+            101  to 8, //KeyEvent.KEYCODE_E
+            102  to 9, //KeyEvent.KEYCODE_F
+            103  to 10,//KeyEvent.KEYCODE_G,
+            104  to 11,//KeyEvent.KEYCODE_H,
+            105  to 12,//KeyEvent.KEYCODE_I,
+            106  to 13,//KeyEvent.KEYCODE_J,
+            107  to 14,//KeyEvent.KEYCODE_K,
+            108  to 15,//KeyEvent.KEYCODE_L,
+            109  to 16,//KeyEvent.KEYCODE_M,
+            110  to 17,//KeyEvent.KEYCODE_N,
+            111  to 18,//KeyEvent.KEYCODE_O,
+            112  to 19,//KeyEvent.KEYCODE_P,
+            113  to 20,//KeyEvent.KEYCODE_Q,
+            114  to 21,//KeyEvent.KEYCODE_R,
+            115  to 22,//KeyEvent.KEYCODE_S,
+            116  to 23,//KeyEvent.KEYCODE_T,
+            117  to 24,//KeyEvent.KEYCODE_U,
+            118  to 25,//KeyEvent.KEYCODE_V,
+            119  to 26,//KeyEvent.KEYCODE_W,
+            120  to 27,//KeyEvent.KEYCODE_X,
+            121  to 28,//KeyEvent.KEYCODE_Y,
+            122  to 29,//KeyEvent.KEYCODE_Z,
+            49   to 30,  //  KeyEvent.KEYCODE_1
+            50   to 31,  //  KeyEvent.KEYCODE_2
+            51   to 32,  //  KeyEvent.KEYCODE_3
+            52   to 33,  //  KeyEvent.KEYCODE_4
+            53   to 34,  //  KeyEvent.KEYCODE_5
+            54   to 35,  //  KeyEvent.KEYCODE_6
+            55   to 36,  //  KeyEvent.KEYCODE_7
+            56   to 37,  //  KeyEvent.KEYCODE_8
+            57   to 38,  //  KeyEvent.KEYCODE_9
+            48   to 39,  //  KeyEvent.KEYCODE_0
+            9    to 43, //   KeyEvent.KEYCODE_TAB
+            32   to 44 // KeyEvent.KEYCODE_SPACE
+        )
+
+
+
+        val UnicodeKeyEvent2ndMap = mapOf<Int,Int>(
+            65   to 4, //KeyEvent.KEYCODE_A
+            66   to 5, //KeyEvent.KEYCODE_B
+            67   to 6, //KeyEvent.KEYCODE_C
+            68  to 7, //KeyEvent.KEYCODE_D
+            69  to 8, //KeyEvent.KEYCODE_E
+            70  to 9, //KeyEvent.KEYCODE_F
+            71  to 10,//KeyEvent.KEYCODE_G,
+            72  to 11,//KeyEvent.KEYCODE_H,
+            73  to 12,//KeyEvent.KEYCODE_I,
+            74  to 13,//KeyEvent.KEYCODE_J,
+            75  to 14,//KeyEvent.KEYCODE_K,
+            76  to 15,//KeyEvent.KEYCODE_L,
+            77  to 16,//KeyEvent.KEYCODE_M,
+            78  to 17,//KeyEvent.KEYCODE_N,
+            79  to 18,//KeyEvent.KEYCODE_O,
+            80  to 19,//KeyEvent.KEYCODE_P,
+            81  to 20,//KeyEvent.KEYCODE_Q,
+            82  to 21,//KeyEvent.KEYCODE_R,
+            83  to 22,//KeyEvent.KEYCODE_S,
+            84  to 23,//KeyEvent.KEYCODE_T,
+            85  to 24,//KeyEvent.KEYCODE_U,
+            86  to 25,//KeyEvent.KEYCODE_V,
+            87  to 26,//KeyEvent.KEYCODE_W,
+            88  to 27,//KeyEvent.KEYCODE_X,
+            89  to 28,//KeyEvent.KEYCODE_Y,
+            90  to 29//,//KeyEvent.KEYCODE_Z,
+//            49   to 30,  //  KeyEvent.KEYCODE_1
+//            50   to 31,  //  KeyEvent.KEYCODE_2
+//            51   to 32,  //  KeyEvent.KEYCODE_3
+//            52   to 33,  //  KeyEvent.KEYCODE_4
+//            53   to 34,  //  KeyEvent.KEYCODE_5
+//            54   to 35,  //  KeyEvent.KEYCODE_6
+//            55   to 36,  //  KeyEvent.KEYCODE_7
+//            56   to 37,  //  KeyEvent.KEYCODE_8
+//            57   to 38,  //  KeyEvent.KEYCODE_9
+//            48   to 39,  //  KeyEvent.KEYCODE_0
+//            9    to 43, //   KeyEvent.KEYCODE_TAB
+//            32   to 44 // KeyEvent.KEYCODE_SPACE
+        )
+
+
+        //        89 0x59 Keypad 1 and End 93 √ √ √ 4/101/104
 //        83 0x53 Keypad Num Lock and Clear11
         val KeyCodeNumberPad: ByteArray = byteArrayOf(
             98,

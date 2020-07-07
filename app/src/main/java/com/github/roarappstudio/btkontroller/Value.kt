@@ -24,6 +24,12 @@ class Value {
         val wheel_haptic_vibrate_time_name="wheel_haptic_vibrate_time_flag"
         val wheel_haptic_skip_count_name="wheel_haptic_skip_count_flag"
 
+        val WINDOWS_NEW_LINE=1
+        val UNIX_NEW_LINE=0
+        val OSX_NEW_LINE=2
+
+        val delay_time=13
+
     }
 
 }

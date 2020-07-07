@@ -49,7 +49,7 @@
     <!-- Settings, should always be in the overflow -->
 
     <item android:id="@+id/action_haptic_settings"
-            android:title="@string/action_haptic_settings"
+            android:title="@string/action_settings"
             android:showAsAction="never"
             />
 

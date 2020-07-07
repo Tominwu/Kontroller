@@ -16,7 +16,6 @@
 
 
         <TextView
-                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -25,7 +24,6 @@
                 android:textStyle="bold" />
 
         <View
-                android:id="@+id/divider5"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="?android:attr/listDivider" />
@@ -39,18 +37,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="@string/haptic_use"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             <Button
                     android:id="@+id/text_haptic_use"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
-                    android:text="@string/haptic_use_system" />
+                    android:singleLine="true"
+                    android:text="@string/haptic_use_system"
+                    android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -69,18 +70,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="@string/wheel_haptic_min"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             <EditText
                     android:id="@+id/edit_wheel_haptic_min_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -106,18 +110,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="@string/wheel_haptic_skip"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             <EditText
                     android:id="@+id/edit_wheel_haptic_skip_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -145,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="@string/wheel_haptic_vib"
                     android:textSize="18sp" />
 
@@ -154,7 +161,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
                     android:inputType="number" />
 
@@ -169,18 +176,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="@string/wheel_haptic_vib"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             <Button
                     android:id="@+id/text_wheel_haptic_vibrate_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
-                    />
+                    android:singleLine="true"
+                    android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -193,7 +202,164 @@
                 android:textSize="18sp" />
 
         <View
-                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"
+                android:text="@string/string_setting"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:text="@string/sendkey_delay"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            <EditText
+                    android:id="@+id/edit_sendkey_delay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/sendkey_delay_tip"
+                android:textSize="18sp" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:text="@string/sendkey_fast"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            <ToggleButton
+                    android:id="@+id/toggle_sendkey_fast"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/sendkey_fast_tip"
+                android:textSize="18sp" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:text="@string/replace_newline"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            <ToggleButton
+                    android:id="@+id/toggle_replace_newline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/replace_newline_tip"
+                android:textSize="18sp" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+
+  <!--   SendString Tip-->
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/ansi_code"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/ansi_code_tip"
+                android:textSize="18sp" />
+
+        <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="?android:attr/listDivider" />

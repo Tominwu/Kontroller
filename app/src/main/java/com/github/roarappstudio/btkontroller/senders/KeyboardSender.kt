@@ -142,6 +142,12 @@ open class KeyboardSender(
     fun sendKeyCode(c :Int) {
         keyboardReport.reset()
 
+        if(c>0xfffffff || c<-0xfffffff){
+            Log.e("sendKeyboard(str)", "c=" + c + ", out of bonds")
+            sendNullKeys()
+            return
+        }
+
         if (replace_newline_flag && c == 0x0a) {
             keyboardReport.key1 = 40.toByte()
             sendKeys()

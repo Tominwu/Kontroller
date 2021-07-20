@@ -424,7 +424,7 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
                 commit()
             }
         }else{
-            ansi_code_flag=sharedPref.getString("ansi_code_flag","GBK")
+            ansi_code_flag= sharedPref.getString("ansi_code_flag","GBK")!!
         }
     }
 

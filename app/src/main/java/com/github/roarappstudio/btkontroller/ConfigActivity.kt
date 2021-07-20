@@ -10,7 +10,7 @@ import android.widget.ToggleButton
 import org.jetbrains.anko.find
 
 
-class HapticConfigActivity : Activity() {
+class ConfigActivity : Activity() {
 
     private var text_haptic_use: Button ?=null
     private var edit_wheel_haptic_min_time:EditText?=null
@@ -22,11 +22,12 @@ class HapticConfigActivity : Activity() {
     private var toggle_replace_newline:ToggleButton?=null
     private var toggle_sendkey_fast:ToggleButton?=null
 
+    private var toggle_wheel_color:ToggleButton?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_haptic_config)
+        setContentView(R.layout.activity_config)
         haptic_use_items = arrayOf(getString(R.string.haptic_use_system),getString(R.string.haptic_use_mandatory),getString(R.string.haptic_use_null))
-
 
         text_haptic_use= find<Button>(R.id.text_haptic_use)
         text_haptic_use!!.setOnClickListener {
@@ -60,7 +61,7 @@ class HapticConfigActivity : Activity() {
 
         toggle_sendkey_fast=find<ToggleButton>(R.id.toggle_sendkey_fast)
 
-
+        toggle_wheel_color=find<ToggleButton>(R.id.toggle_wheel_color)
 
 //        edit_wheel_haptic_vibrate_time=find<EditText>(R.id.edit_wheel_haptic_vibrate_time)
         load()
@@ -98,6 +99,7 @@ class HapticConfigActivity : Activity() {
 
         fast_mode_flag=toggle_sendkey_fast!!.isChecked
         replace_newline_flag=toggle_replace_newline!!.isChecked
+        wheel_color_flag=toggle_wheel_color!!.isChecked
 
 //        v=edit_wheel_haptic_vibrate_time!!.text.toString().toInt()
 
@@ -113,6 +115,8 @@ class HapticConfigActivity : Activity() {
             putBoolean("fast_mode_flag",fast_mode_flag)
             putBoolean("replace_newline_flag",replace_newline_flag)
             putInt("delay_time",delay_time)
+
+            putBoolean("wheel_color_flag",wheel_color_flag)
 
             commit()
         }
@@ -143,6 +147,9 @@ class HapticConfigActivity : Activity() {
 
         delay_time=sharedPref.getInt("delay_time",Value.delay_time)
         edit_delay_time!!.setText(delay_time.toString())
+
+        wheel_color_flag=sharedPref.getBoolean("wheel_color_flag",Value.wheel_color_flag)
+        toggle_wheel_color!!.setChecked(wheel_color_flag)
     }
 
 
@@ -158,6 +165,7 @@ class HapticConfigActivity : Activity() {
         Value.wheel_haptic_skip_count_flag
     var wheel_haptic_vibrate_time_flag =
         Value.wheel_haptic_vibrate_time_flag
+    var wheel_color_flag=Value.wheel_color_flag
 
 
     var haptic_use_items: Array<String> = arrayOf("default", "no", "awlays")

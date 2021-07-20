@@ -367,11 +367,17 @@ public class WheelPicker extends View {
     }
 
 
+    private boolean wheel_color_flag=Value.Companion.getWheel_color_flag();
+    public void set_wheel_color_flag(Boolean flag){
+        wheel_color_flag=flag;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.translate(mTranslationOffset, mTranslationOffset);
-
-        {
+        if (!wheel_color_flag || (mRadialSender2==null)) {
+            mColorTinyPaint.setColor(Color.LTGRAY);
+        }
 
             // Draw the new selected color in the center.
             canvas.drawArc(mCenterRectangle, 0, 360, true, mColorTinyPaint);
@@ -391,7 +397,7 @@ public class WheelPicker extends View {
                 其中，startAngle为起始角度，sweepAngle为弧度大小，
                 useCenter为true，则是绘制一个扇行，为false，则只是一段圆弧。（ps：startAngle为0时，是圆形钟表3点钟方向
 */
-        }
+
     }
 
 
@@ -569,6 +575,10 @@ public class WheelPicker extends View {
 
     public void setBluetoothRadialSender(RadialSender2 mRadialSender2) {
         this.mRadialSender2 = mRadialSender2;
+        if (mRadialSender2 != null)
+            setNewCenterColor(Color.GREEN);
+        invalidate();
+        Log.i("setBluetoothRadialSender", "is_null=" + (this.mRadialSender2 == null));
     }
 
 
@@ -845,6 +855,7 @@ haptic有三种模式：
     public boolean getShowOldCenterColor() {
         return mShowCenterOldColor;
     }
+
 
 
     @Override

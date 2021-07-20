@@ -64,7 +64,12 @@
         \nIf the wrong encoding is selected, sending the string will form a garbled code. On Windows, less old software generally supports Unicode encoding.
         If entering Unicode fails, you can select the character and dot the icon to ANSI.
     </string>
+    <string name="wheel_color">Wheel Color</string>
+    <string name="wheel_color_tip">Windows radial controller devices have a primary button, and a rotational affordance.AB Dial use a wheel split the screen to two part：
+    Click the area inside the wheel as click primary button， Move the area outside the wheel as rotation.
+        When you turn the wheel color on, each operation could change the color of the wheel.</string>
 
+    <string name="ui_setting">UI Setting</string>
     <string name="mult_line_text">m
         \nu
         \nl

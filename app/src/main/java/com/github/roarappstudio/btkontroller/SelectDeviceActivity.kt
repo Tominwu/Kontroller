@@ -98,7 +98,7 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
         val trackPadView = find<View>(R.id.mouseView)
 
         wheelView=find<WheelPicker>(R.id.wheel)
-        wheelView?.setNewCenterColor(Color.LTGRAY)
+//        wheelView?.setNewCenterColor(Color.LTGRAY)
 
         val button1=find<Button>(R.id.button1)
         val button2=find<Button>(R.id.button2)
@@ -122,7 +122,7 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
                     mRadialSender2= RadialSender2(hidd,device)
 
                         wheelView?.setBluetoothRadialSender(mRadialSender2);
-                        wheelView?.setNewCenterColor(Color.GREEN)
+//                        wheelView?.setNewCenterColor(Color.GREEN)
 
                     rKeyboardSender?.configSendString(
                         sharedPref.getInt("delay_time",Value.delay_time),
@@ -240,8 +240,9 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
 
         }
 
+
         BluetoothController.getDisconnector{
-            Log.e("BluetoothController","getDisconnector")
+            Log.e("Main Activity","BluetoothController getDisconnector")
 //            bluetoothStatus?.icon=getDrawable(R.drawable.ic_action_app_not_connected)
 //            bluetoothStatus?.tooltipText="App not connected via bluetooth"
 //            wheelView?.setNewCenterColor(Color.LTGRAY)
@@ -252,7 +253,8 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
                 override fun run() {
                     bluetoothStatus?.icon=getDrawable(R.drawable.ic_action_app_not_connected)
                     bluetoothStatus?.tooltipText="App not connected via bluetooth"
-                    wheelView?.setNewCenterColor(Color.LTGRAY)
+                    wheelView?.setBluetoothRadialSender(null)
+//                    wheelView?.setNewCenterColor(Color.LTGRAY)
                 }
             })
         }
@@ -269,6 +271,8 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
             sharedPref.getInt("wheel_haptic_vibrate_time_flag",Value.wheel_haptic_vibrate_time_flag),
             sharedPref.getInt("wheel_haptic_skip_count_flag",Value.wheel_haptic_skip_count_flag)
         )
+
+        wheelView?.set_wheel_color_flag(sharedPref.getBoolean("wheel_color_flag",Value.wheel_color_flag))
 
         rKeyboardSender?.configSendString(
             sharedPref.getInt("delay_time",Value.delay_time),
@@ -523,7 +527,7 @@ class SelectDeviceActivity: Activity(),KeyEvent.Callback {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_haptic_settings -> {
            startActivity(Intent(this,
-               HapticConfigActivity::class.java))
+               ConfigActivity::class.java))
             true
         }
 

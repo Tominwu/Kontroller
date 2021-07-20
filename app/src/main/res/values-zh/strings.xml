@@ -64,6 +64,13 @@
         如果输入Unicode失败，可以选择字符集GBK（中文简体）或者BIG5（中文繁体）并把图标点到ANSI上。
     </string>
 
+    <string name="wheel_color">焕彩圆环</string>
+    <string name="wheel_color_tip">Windows转盘设备由两个部分构成：可以按压的按钮（在AB dail中就是屏幕中央圆环内的可点击区域），可以旋转的外壳（在AB dial中就是圆环外的可滑动区域）。
+    开启“焕彩圆环”后，没有连接蓝牙时圆环为灰色，蓝牙连接成功变为绿色，此后每次触发按钮或者旋转动作，圆环的色彩都会变化，构成视觉反馈。
+    </string>
+
+    <string name="ui_setting">界面设置</string>
+
     <string name="mult_line_text">m
         \nu
         \nl

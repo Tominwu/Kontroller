@@ -238,11 +238,21 @@ open class KeyboardSender(
 
         try {
             var c : Int
+            var l =0
             for (i in 0 until str.length) {
-                c = str[i].toInt()
+                c = str[i].code
                 if (fast_mode_flag) {
                     if (fast_send_char(c))
                         continue
+                }
+
+//              utf16高低代理->unicode
+                if(c>=0xD800 && c<=0xDBFF){
+                    l=(c-0xd800).shl(10)
+                    continue;
+                }else if(c>=0xDC00 && c<=0xDFFF){
+                    c=(l+c-0xDC00+0x10000);
+                    l=0
                 }
                 sendKeyCode(c)
             }
@@ -275,11 +285,20 @@ open class KeyboardSender(
             var c : Int
 
             for (i in 0 until string.length) {
+                c = string[i].code;
                 if (fast_mode_flag) {
-                    if (fast_send_char(string[i].toInt()))
+                    if (fast_send_char(c))
                         continue
                 }
-                c=byteArray2Int(string[i].toString().toByteArray(encoder))
+
+                if(c>=0xD800 && c<=0xDBFF){
+                    continue;
+                }else if(c>=0xDC00 && c<=0xDFFF && i>0){
+                    c=byteArray2Int(string.substring(i-1,i+1).toByteArray(encoder))
+                }else{
+                    c=byteArray2Int(string[i].toString().toByteArray(encoder))
+                }
+
                 Log.i("sendKeyboard","charset="+encoder.name()+"\t content="+string[i]+",\tvalue=${c}")
                 sendKeyCode(c)
             }

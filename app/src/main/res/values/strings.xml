@@ -41,7 +41,7 @@
     <string name="haptic_use_mandatory">always</string>
     <string name="haptic_use_null">never</string>
 
-    <string name="action_haptic_settings">haptic Setting</string>
+    <string name="action_haptic_settings">Haptic Setting</string>
     <string name="action_show_edittext">Show EditText</string>
 
     <string name="string_setting">String Setting</string>

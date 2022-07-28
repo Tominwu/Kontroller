@@ -12,7 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
 
 
         <TextView
@@ -209,8 +210,8 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:paddingTop="20dp"
+                android:paddingBottom="10dp"
                 android:text="@string/ui_setting"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -261,8 +262,8 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:paddingTop="20dp"
+                android:paddingBottom="10dp"
                 android:text="@string/string_setting"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -352,7 +353,6 @@
                 android:background="?android:attr/listDivider" />
 
 
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -392,7 +392,7 @@
                 android:background="?android:attr/listDivider" />
 
 
-  <!--   SendString Tip-->
+        <!--   SendString Tip-->
 
         <TextView
                 android:layout_width="match_parent"
